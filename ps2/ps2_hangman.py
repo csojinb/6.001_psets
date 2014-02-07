@@ -152,6 +152,8 @@ def print_spaced(incomplete_word):
     Takes the incomplete word and prints it with spaces between characters.
     """
     print " ".join(list(incomplete_word))
+    # for char in incomplete_word:
+    #     print char,
 
 def is_alpha(string):
     """
@@ -182,6 +184,8 @@ wordlist = hangman_start()
 word, incomplete_word, available_letters = game_start(guesses)
 print_current_board()
 
+solved = False
+
 while guesses >= 0:
     
     guess = raw_input("Choose a letter or solve the puzzle:").lower()
@@ -196,6 +200,7 @@ while guesses >= 0:
 
         if indices == []:
             print 'I\'m sorry, there are no %s\'s in this word.' % (guess)
+            guesses -= 1
         else:
             print 'Hurray! You got one!'
 
@@ -211,7 +216,6 @@ while guesses >= 0:
         available_letters = update_available_letters(available_letters, guess)
 
         print_current_board()
-        guesses -= 1
 
     # treat multi-letter guesses as attempts to solve
     elif is_alpha(guess) == True: 
@@ -226,4 +230,8 @@ while guesses >= 0:
     # non-alpha guesses
     else:
         print 'Invalid entry. Please enter only alphabetic characters.'
+
+if solved == False:
+    print 'Sorry, you didn\'t solve the word in time.'
+    print 'Your word was:', word
 
