@@ -184,14 +184,28 @@ def test_is_valid_word(word_list):
         print "\tExpected False, but got True for word: '" + word + "' and hand:", hand
         print "\t(If this is the only failure, make sure is_valid_word() isn't mutating its inputs)"        
         
-        failure = True        
+        failure = True    
+
+    # test 7
+    word = "evli"
+
+    if is_valid_word(word, hand, word_list):
+        print "FAILURE: test_is_valid_word()"
+        print "\t Expected False, but got True for word: '" + word
+        print "\t(If this is the only failure, make sure is_valid_word() is checking word_list.)"    
 
     if not failure:
         print "SUCCESS: test_is_valid_word()"
 
-# def test_play_hand():
+def test_play_hand():
 
-#     hand = deal_hand(HAND_SIZE)
+    # test 1
+    hand = {'a':1, 'c':1, 'i':1, 'h':1, 'm':2, 'z':1}
+    play_hand(hand, word_list)
+
+    # test 2
+    hand = {'a':1, 's':1, 't':2, 'w':1, 'f':1, 'o':1}
+    play_hand(hand, word_list)
 
 
 word_list = load_words()
@@ -205,4 +219,6 @@ print "----------------------------------------------------------------------"
 print "Testing is_valid_word..."
 test_is_valid_word(word_list)
 print "----------------------------------------------------------------------"
+print "Testing play_hand..."
+test_play_hand()
 print "All done!"

@@ -90,8 +90,8 @@ def get_word_score(word, n):
 
     # for c in word:
     #     score += SCRABBLE_LETTER_VALUES[c]
-print get_word_score('planet',7)
-print get_word_score('planet',6)
+# print get_word_score('planet',7)
+# print get_word_score('planet',6)
 # Make sure you understand how this function works and what it does!
 #
 def display_hand(hand):
@@ -181,14 +181,15 @@ def is_valid_word(word, hand, word_list):
     """
     word_dict = get_frequency_dict(word)
 
-    valid = True
+    if word not in word_list:
+        return False
 
     for key in word_dict:
 
         if word_dict[key] > hand.get(key, 0):
-            valid = False
+            return False
 
-    return valid
+    return True
 
 def calculate_handlen(hand):
     handlen = 0
@@ -229,7 +230,7 @@ def play_hand(hand, word_list):
     """
     total_score = 0
 
-    while len(hand) > 0
+    while len(hand) > 0:
 
         display_hand(hand)
 
@@ -240,17 +241,23 @@ def play_hand(hand, word_list):
 
         word = word_or_end
 
-        if not is_valid_word(word, hand, word_list):
+        # print "Is valid word?", is_valid_word(word, hand, word_list)
+
+        if is_valid_word(word, hand, word_list):
+
+            hand = update_hand(hand, word)
+
+            word_score = get_word_score(word, HAND_SIZE)
+            total_score += word_score
+
+            print '\"' + word + '\"', 'earned', word_score, 'points.',
+            print 'Total:', total_score, 'points'
+
+        else:
             print 'That was not a valid word, please try again.'
             continue
 
-        update_hand(hand, word)
 
-        word_score = get_word_score(word, HAND_SIZE)
-        total_score += word_score
-
-        print '\"' + word + '\"', 'earned', word_score, 'points.',
-        print 'Total:', total_score, 'points'
 #
 # Problem #5: Playing a game
 # Make sure you understand how this code works!
